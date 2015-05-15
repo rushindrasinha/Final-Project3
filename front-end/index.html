@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--RS===========This Website is built by Rushindra Sinha =====================RS-->
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--RS======== Angular + JS Files ============RS-->
+<script src="js/angular.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+
+<!--RS=== Bootstrap CDN (jQuery + CSS + JS) ===RS-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+<!--RS============= Stylesheets =============RS-->
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+
+  <title>Add Name Here</title>
+</head>
+<body ng-app="eatApp">
+  <div class="container">
+<!--RS=== Header Begins ===RS-->
+  <header ng-controller="EatController as eat">
+
+<section>
+  <h1 class="centeralign">QuickEat</h1>
+</section>
+
+<div class="row jumbotron">
+
+  <div class="col-md-12 centeralign dicearound">
+     <section class="centeralign">
+       <br><br><br>
+       <img src="https://cdn.tutsplus.com/vector/uploads/legacy/tuts/165_Shiny_Dice/27.jpg" align="middle" alt="" height="300px" width="350px" class="img-responsive highlight" />
+       <br><br><br><br>
+
+
+          <!-- Button trigger modal -->
+          <button type="button" ng-click="eat.test()" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            Roll The Dice
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Random Recipe</h4>
+                </div>
+                <div class="modal-footer centeralign">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-danger" ng-click="eat.test()" >Roll Again</button>
+                </div>
+                <div class="modal-body" >
+                  <strong><h2>{{eat.randomRecipe.name}}</h2></strong>
+                  <img class="centeralign img-responsive" ng-src="{{eat.randomRecipe.image}}" alt="" /><br><br>
+                  <strong>Description: </strong>{{eat.randomRecipe.description}} <br><br>
+                  <strong>Ingredients: </strong>{{eat.randomRecipe.content}} <br><br>
+                  <strong>Cooking Time: </strong><span class="btn-default btn">{{eat.randomRecipe.time}}</span> <br><br>
+                  <strong>Procedure: </strong>{{eat.randomRecipe.directions}}
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+     </section>
+   </div>
+
+</div> <!-- Row ends here -->
+
+
+
+
+
+
+
+
+
+
+
+<div class="row jumbotron">
+  <!-- Recipes Table -->
+  <div class="col-md-4">
+    <section class="recipe-list">
+      <h3 class='centeralign'>Search Recipes</h3>
+      <input ng-model="eat.search" type="search" class="form-control centeralign" placeholder="Find Recipies By Name">
+      <br>
+      <ul>
+        <li class="jumbotron" ng-repeat="recipe in eat.recipelist | filter: eat.search">
+          <span><div class="centeralign"><h4 class="centeralign">{{ recipe.name }}</h4><br>
+            <img class="img-responsive" align="middle" ng-src="{{recipe.image}}"  alt="" /></div><br><br>
+            <strong>Description:</strong> {{ recipe.description }} <br>
+            <strong>Ingredients: </strong><span ng-repeat="ingredient in recipe.ingredients">'{{ ingredient.name }}'</span><br>
+            <strong>Quantity: </strong>{{ recipe.content }} <br> <strong>Time: </strong>{{recipe.time}} minutes <br> <strong>Procedure: </strong>{{recipe.directions}} </span>
+          <!-- <button class="btn btn-delete" ng-click="todos.deleteTodo(recipe)">x</button> -->
+        </li>
+      </ul>
+
+      <section class="centeralign">
+      <input type="submit" name="name" value="Search" class="btn btn-default">
+    </section>
+    </section>
+  </div>   <!-- Recipe Table ENDS -->
+
+
+  <div class="col-md-4">
+    <div class="centeralign jumbotron" ng-repeat="result in eat.currentIngredients">
+    <h2>{{result.name}}</h2>
+    <img ng-src="{{result.image}}" alt="" />
+     <div>{{result.description}}</div>
+     <div>{{result.content}}</div>
+     <div>{{result.time}}</div>
+     <div>{{result.directions}}</div>
+   </div>
+  </div>
+
+
+
+
+
+<!-- Ingredient Table STARTS -->
+  <div class="col-md-4">
+ <section class="recipe-list">
+   <h3 class='centeralign'>Search by Ingredients (You Have)</h3>
+   <input ng-model="ing.search" type="search" class="form-control centeralign" placeholder="Find Recipies By Ingredients">
+   <br>
+   <ul class="centeralign">
+     <li class="shade" style="display: inline-block" ng-click="eat.selectedIngredients.push(ingredient.id)" ng-repeat="ingredient in eat.ingredientlist | filter: ing.search">
+       <!-- <input class="checkbox" ng-click="todos.updateTodo(recipe)" type="checkbox" ng-model="recipe.done"> -->
+       <img ng-src="{{ ingredient.image }}" style="width: 50px; height: 50px" alt="" />
+       <div><strong class="centeralign">Ingredient: </strong>{{ ingredient.name }}</div>
+       <!-- <button class="btn btn-delete" ng-click="todos.deleteTodo(recipe)">x</button> -->
+     </li>
+   </ul>
+   <section class="centeralign">
+   <input ng-click="eat.searchRecipesByIngredients()" type="submit" name="name" value="Search" class="btn btn-default">
+ </section>
+ </section>
+</div>
+<!-- Ingredient Table ENDS -->
+
+</div>
+  </header>
+<!--RS=== Header Ends ===RS-->
+
+
+  <section>
+
+
+
+
+  </section>
+
+
+  <section>
+
+
+
+
+  </section>
+
+<!--RS=== Footer Begins ===RS-->
+  <footer>
+
+
+
+  </footer>
+<!--RS=== Footer Ends ===RS-->
+
+
+</div>
+</body>
+</html>

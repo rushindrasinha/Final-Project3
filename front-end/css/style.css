@@ -1,0 +1,36 @@
+.container {
+  width: auto;
+}
+
+
+.centeralign {
+  text-align: center;
+}
+
+body {
+  background: url(../assets/bg.jpg) no-repeat center center fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+   display: inline-block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 20%;
+}
+
+ul
+{
+    list-style-type: none;
+}
+
+.jumbotron {
+  background-color: rgba(255,255,255,0.3);
+}
+
+.shade {
+  background-color: rgba(255,255,255,0.3);
+  margin: 5px;
+  padding: 5px;
+}
