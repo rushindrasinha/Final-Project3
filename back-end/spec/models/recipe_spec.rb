@@ -11,10 +11,6 @@ RSpec.describe Recipe do
         expect(recipe).to be_invalid
     end
 
-    it "is invalid without a list of ingredients" do
-        recipe = FactoryGirl.build(:recipe, ingredients: nil)
-        expect(recipe).to be_invalid
-    end
 
     it "is invalid without the time it takes listed" do
         recipe = FactoryGirl.build(:recipe, time: nil)
