@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+<!-- @gotandon -->
+
+<head>
+<title>Quick.Meal Facebook</title>
+
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/semantic.css">
+<script src="js/angular.js"></script>
+<script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<!-- Facebook Login Initialize -->
+<!-- <script type="text/javascript" src="js/fb.js"></script> -->
+<script type="text/javascript" src="js/semantic.js"></script>
+
+</head>
+
+<body ng-app="eatApp">
+
+  <header ng-controller="EatController as eat">
+
+  <!-- navbar start-->
+  <div class="ui red centered inverted menu">
+    <a class="item">MunchieTime</a>
+  </div>
+  <!-- navbar end -->
+
+<!-- Search or dice it  -->
+<div class="ui center aligned compact segment">
+  <div class="ui left icon action input">
+    <i class="search icon"></i>
+  <input type="text" placeholder="Search for recipes and ingredients">
+  <div class="ui blue submit button">Search</div>
+  </div>
+  <div class="ui horizontal divider">
+    Or
+  </div>
+  <button class="title massive positive ui animated centered fade bottom attached button" ng-click="eat.test()">
+    <div class="visible content">Dice It!</div>
+    <div class="hidden content">NOW!</div>
+  </button>
+</div>
+
+
+<!-- end search or dice it  -->
+
+<!-- start dice it button -->
+  <div class="ui three column grid">
+    <div class="six wide column">
+      <div class="ui left aligned category search">
+        <div class="ui icon input">
+          <input class="prompt" ng-model="ing.search" type="text" placeholder="Search Ingredients">
+          <i class="search icon"></i>
+        </div>
+      <div class="results"></div>
+      <div class=" ui divided items" ng-repeat="ingredient in eat.ingredientlist | filter: ing.search"
+                   ng-click="eat.selectedIngredients.push(ingredient.id)">
+        <div class="item">
+          <div class="ui tiny image">
+            <img src="{{ ingredient.image }}">
+          </div>
+          <div class="middle aligned content">
+              <strong>{{ingredient.name}}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- start suggested recipe column -->
+  <div class="four wide column">
+    <div class="ui styled fluid ">
+      <div class="content">
+    <!-- start recipe suggestion card -->
+        <div class="ui card flyme">
+          <div class="image">
+            <img src="{{eat.randomRecipe.image}}">
+          </div>
+          <div class="content">
+              <a class="header">{{eat.randomRecipe.name}}</a>
+              <div class="meta">
+                <span class="date">>{{eat.randomRecipe.time}} minutes</span>
+              </div>
+              <br>
+              <div class="extra content">
+                {{eat.randomRecipe.description}}
+              </div>
+              <br>
+              <div class="description">
+                {{eat.randomRecipe.content}}
+              </div>
+            </div>
+          </div>
+    <!-- end recipe suggestion card -->
+      
+      </div>
+    </div>
+  </div>
+  <!-- start recipe list with search  -->
+  <div class="six wide column">
+    <div class="ui right aligned category search">
+      <div class="ui icon input">
+        <input class="" ng-model="eat.search" type="text" placeholder="Search Recipes">
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+      <div class="ui items" ng-repeat="recipe in eat.recipelist | filter: eat.search">
+        <div class="item">
+        <div class="image">
+          <img src="{{ recipe.image }}">
+        </div>
+        <div class="content">
+          <a class="header">{{recipe.name}}</a>
+          <div class="meta">
+            <span>{{recipe.time}}</span>
+          </div>
+        <div class="description">
+        <p>{{recipe.description}}</p>
+        </div>
+        <div class="extra">
+        Additional Details
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<!-- end recipe list with search -->
+  </header>
+
+</body>
+
+</html>
