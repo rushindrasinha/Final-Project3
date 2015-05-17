@@ -11,6 +11,7 @@ angular
 		self.test = test;
 		self.shufflelist = test();
 		self.randomRecipe;
+		self.changeClass = changeClass;
 		self.currentIngredients;
 		rejectedArray = [];
 		self.selectedIngredients = [];
@@ -38,6 +39,11 @@ angular
              });
    }
 
+	 function changeClass() {
+		  $('button.btn-warning').click(function() {
+		    $(this).removeClass('btn-warning').addClass('selected');
+		  });
+	}
 
 
 
@@ -47,11 +53,12 @@ angular
 			var params = {ingredients:self.selectedIngredients};
 			console.log(params);
 
-			$http.post('http://localhost:3000/api/search', params)
+			$http.post('http://munchtime.herokuapp.com/api/search', params)
 			.success(function(response){
 //				console.log(response)
 					self.currentIngredients = response
 					console.log(self.currentIngredients)
+					self.selectedIngredients = [];
 			})
 			.error(function(response){
 				console.log(response)

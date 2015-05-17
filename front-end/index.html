@@ -11,6 +11,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/munch.js"></script>
 
 
 <!--RS============= Stylesheets =============RS-->
@@ -18,7 +19,7 @@
 
 
 
-  <title>Add Name Here</title>
+  <title>Munch Time</title>
 </head>
 <body ng-app="eatApp">
   <div class="container">
@@ -26,7 +27,7 @@
   <header ng-controller="EatController as eat">
 
 <section>
-  <h1 class="centeralign">QuickEat</h1>
+  <h1 class="centeralign">Munch Time</h1>
 </section>
 
 <div class="row jumbotron">
@@ -67,7 +68,7 @@
               </div>
             </div>
           </div>
-
+          <!-- Modal Ends -->
 
 
 
@@ -81,7 +82,18 @@
 
 
 
-
+<!-- <div class="row">
+  <div class="col-md-12">
+    <div class="centeralign jumbotron" ng-repeat="result in eat.currentIngredients">
+    <h2>{{result.name}}</h2>
+    <img ng-src="{{result.image}}" alt="" />
+     <div>{{result.description}}</div>
+     <div>{{result.content}}</div>
+     <div>{{result.time}}</div>
+     <div>{{result.directions}}</div>
+   </div>
+  </div>
+</div> -->
 
 
 
@@ -90,7 +102,7 @@
 
 <div class="row jumbotron">
   <!-- Recipes Table -->
-  <div class="col-md-4">
+  <div class="col-md-6">
     <section class="recipe-list">
       <h3 class='centeralign'>Search Recipes</h3>
       <input ng-model="eat.search" type="search" class="form-control centeralign" placeholder="Find Recipies By Name">
@@ -113,41 +125,67 @@
   </div>   <!-- Recipe Table ENDS -->
 
 
-  <div class="col-md-4">
-    <div class="centeralign jumbotron" ng-repeat="result in eat.currentIngredients">
-    <h2>{{result.name}}</h2>
-    <img ng-src="{{result.image}}" alt="" />
-     <div>{{result.description}}</div>
-     <div>{{result.content}}</div>
-     <div>{{result.time}}</div>
-     <div>{{result.directions}}</div>
-   </div>
-  </div>
 
 
 
 
 
 <!-- Ingredient Table STARTS -->
-  <div class="col-md-4">
+  <div class="col-md-6">
  <section class="recipe-list">
    <h3 class='centeralign'>Search by Ingredients (You Have)</h3>
    <input ng-model="ing.search" type="search" class="form-control centeralign" placeholder="Find Recipies By Ingredients">
    <br>
    <ul class="centeralign">
-     <li class="shade" style="display: inline-block" ng-click="eat.selectedIngredients.push(ingredient.id)" ng-repeat="ingredient in eat.ingredientlist | filter: ing.search">
+     <li class="shade" ng-class="selectedING" style="display: inline-block" ng-click="eat.selectedIngredients.push(ingredient.id)" ng-repeat="ingredient in eat.ingredientlist | filter: ing.search">
        <!-- <input class="checkbox" ng-click="todos.updateTodo(recipe)" type="checkbox" ng-model="recipe.done"> -->
-       <img ng-src="{{ ingredient.image }}" style="width: 50px; height: 50px" alt="" />
-       <div><strong class="centeralign">Ingredient: </strong>{{ ingredient.name }}</div>
+       <button ng-click="eat.changeClass()" class="btn btn-xs btn-warning"><img ng-src="{{ ingredient.image }}" style="width: 50px; height: 50px" alt="" />
+       <div><strong class="centeralign">Ingredient: </strong>{{ ingredient.name }}</div></button>
        <!-- <button class="btn btn-delete" ng-click="todos.deleteTodo(recipe)">x</button> -->
      </li>
    </ul>
    <section class="centeralign">
-   <input ng-click="eat.searchRecipesByIngredients()" type="submit" name="name" value="Search" class="btn btn-default">
+   <!-- <input ng-click="eat.searchRecipesByIngredients()" type="submit" name="name" value="Search" class="btn btn-default"> -->
+
+   <!-- Button trigger modal -->
+   <button type="button" ng-click="eat.searchRecipesByIngredients()" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#searchModal">
+     Search
+   </button>
+
+   <!-- Search Modal -->
+   <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" id="searchModalLabel">Search Results</h4>
+         </div>
+         <div class="modal-footer centeralign">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+         </div>
+         <div class="modal-body" ng-repeat="result in eat.currentIngredients">
+           <h2>{{result.name}}</h2>
+           <img class="img-responsive" ng-src="{{result.image}}" alt="" /><br><br>
+           <strong>Description: </strong> {{result.description}} <br><br>
+           <strong>Ingredients: </strong>{{result.content}} <br><br>
+           <strong>Cooking Time: </strong><span class="btn-default btn">{{result.time}}</span> <br><br>
+           <strong>Procedure: </strong>{{result.directions}} <hr>
+         </div>
+         <div class="modal-footer centeralign">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+         </div>
+       </div>
+     </div>
+   </div>
+   <!-- Search Modal Ends -->
+
  </section>
  </section>
 </div>
 <!-- Ingredient Table ENDS -->
+
+
+
 
 </div>
   </header>
