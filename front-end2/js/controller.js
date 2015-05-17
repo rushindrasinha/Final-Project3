@@ -15,6 +15,7 @@ angular
 		rejectedArray = [];
 		self.selectedIngredients = [];
 		self.searchRecipesByIngredients = searchRecipesByIngredients;
+		// self.search = ;
 		console.log("this is the list of selected ingredients" + self.selectedIngredients);
    function getRecipes(){
      $http.get('http://munchtime.herokuapp.com/api/recipes')
@@ -27,7 +28,7 @@ angular
              });
    }
 
-		
+
 
 	function getIngredients(){
      $http.get('http://munchtime.herokuapp.com/api/ingredients')

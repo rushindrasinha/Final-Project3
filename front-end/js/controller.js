@@ -39,8 +39,6 @@ angular
    }
 
 
-
-
 		function searchRecipesByIngredients(){
 			//console.log(arguments);
 //			console.log(self.selectedIngredients);
