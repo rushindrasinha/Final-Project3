@@ -3,12 +3,19 @@
       first_name "John"
       last_name "Doe"
       email "john@example.com"
+      password "secret"
+      # password_confirmation "secret"
+    end
+
+    factory :invalid_user, :class => "User" do
+      first_name nil
+      last_name nil
     end
   end
 
 
   # FactoryGirl.define do
-  #   factory :contact do
+  #   factory :user do
   #     firstname { Faker::Name.first_name }
   #     lastname { Faker::Name.last_name }
   #     email { Faker::Internet.email }
