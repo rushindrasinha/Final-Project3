@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :ingredients, only: [:index, :show, :create, :destroy, :update]
     post 'search' => 'recipes#search'
   end
+
   resources :users
   get "signup" => "users#new"
 

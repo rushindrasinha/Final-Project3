@@ -37,8 +37,8 @@ RSpec.describe User do
   end
 
   it "is invalid if a user tries to sign up with an email that already exists" do
-        user1 = User.create(first_name: "John", last_name: "Doe", email: "john@example.com")
-        user2 = User.new(first_name: "John", last_name: "Doe", email: "john@example.com")
+        user1 = User.create(first_name: "Sally", last_name: "Doe", email: "sally@example.com")
+        user2 = User.new(first_name: "John", last_name: "Doe", email: "sally@example.com")
         expect(user1).to be_valid
         expect(user2).to be_invalid
     end
