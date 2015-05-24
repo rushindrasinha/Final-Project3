@@ -5,4 +5,12 @@ class ApplicationController < ActionController::Base
   def default_serializer_options
     { root: false }
   end
+
+  # app/controllers/application_controller.rb
+  helper_method :current_user
+
+  private
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
 end

@@ -22,6 +22,9 @@ module API
       render json: returned_recipes, status: 201
     end
 
+    def show
+      render json: Recipe.find(params[:id])
+    end
 
     def create
       recipe = Recipe.new(recipe_params)
@@ -56,7 +59,7 @@ module API
     private
 
     def recipe_params
-      params.require(:recipe).permit(:name, :description, :ingredients, :time, :directions, :image, :ingredients)
+      params.require(:recipe).permit(:name, :description, :content, :time, :directions, :image)
     end
   end
 end
